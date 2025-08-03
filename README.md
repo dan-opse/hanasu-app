@@ -1,69 +1,82 @@
-# AI Language Learning Spike
 
-A test script for analyzing English text from language learners using Google's Gemini AI. This project demonstrates how to use the Google Generative AI API to provide grammar corrections, analysis, and conversation suggestions.
+# Hanasu: AI Language Coach
 
-## Features
+![Project Status](https://img.shields.io/badge/status-in%20development-yellow)
 
-- Analyzes English text for grammatical errors
-- Provides corrected versions of the text
-- Offers detailed explanations of mistakes
-- Suggests next conversation topics for practice
-- Uses Google's Gemini 1.5 Flash model
+A web application that allows users to practice a new language by recording voice memos, receiving AI-powered transcription, and getting actionable feedback on grammar and pronunciation.
 
-## Setup
+---
 
-1. **Clone the repository**
-   ```bash
-   git clone <your-repo-url>
-   cd ai-spike
-   ```
+### ► Live Demo
 
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
+_WIP_
 
-3. **Set up your API key**
-   - Get a Google AI API key from [Google AI Studio](https://makersuite.google.com/app/apikey)
-   - Create a `.env` file in the project root
-   - Add your API key: `GOOGLE_API_KEY=your_actual_api_key_here`
+### ► Screenshot
 
-4. **Run the script**
-   ```bash
-   npm start
-   ```
+_WIP_
 
-## Usage
+---
 
-The script currently analyzes a sample text: "I is learning English. Yesterday I eat a sushi. It were delicious"
+### ✨ Core Features
 
-To analyze different text, modify the `sampleText` variable in `spike.js`.
+* **Voice Memo Recording:** Simple, browser-based audio recording.
+* **AI-Powered Transcription:** Utilizes the browser's built-in Web Speech API for fast and free transcription.
+* **Grammar & Fluency Analysis:** Leverages a Large Language Model (LLM) to correct errors and provide improvement suggestions.
+* **Targeted Practice:** Suggests new topics based on the user's identified weaknesses.
 
-## Output Example
+---
 
-```
-✅ JSON is valid. Here's the corrected text:
-I am learning English. Yesterday I ate sushi. It was delicious.
+### 🛠️ Tech Stack
 
-📝 Analysis:
-1. I is learning English: Incorrect verb conjugation...
-2. Yesterday I eat a sushi: Incorrect past tense verb...
-3. It were delicious: Incorrect verb conjugation...
+* **Frontend:** React, Tailwind CSS
+* **Backend:** Node.js, Express.js
+* **Database:** Firestore
+* **AI Services:**
+    * **Speech-to-Text:** Web Speech API (Browser Native)
+    * **Analysis:** Whipster API
+    * **Text-to-Speech:** Web Speech API (Browser Native)
 
-🎯 Next Topic: Talking about past activities and meals...
-```
+---
 
-## Dependencies
+### 🚀 Getting Started
 
-- `@google/generative-ai`: Google's Generative AI SDK
-- `dotenv`: Environment variable management
+Instructions on how to set up and run a local copy of this project.
 
-## Security
+**Prerequisites:**
+* Node.js (v18 or later)
+* npm
 
-- Never commit your `.env` file to version control
-- The `.gitignore` file is configured to exclude sensitive files
-- Keep your API keys secure and rotate them regularly
+**Installation & Setup:**
 
-## License
+1.  **Clone the repository:**
+    ```bash
+    git clone [https://github.com/your-username/hanasu-app.git](https://github.com/your-username/hanasu-app.git)
+    cd hanasu-app
+    ```
 
-MIT 
+2.  **Install server dependencies:**
+    ```bash
+    cd server
+    npm install
+    ```
+
+3.  **Install client dependencies:**
+    ```bash
+    cd ../client
+    npm install
+    ```
+
+4.  **Set up environment variables:**
+    * Create a `.env` file in the `server` directory.
+    * Add your `API_KEY="YOUR_API_KEY_HERE"`.
+
+5.  **Run the application:**
+    * From the `server` directory, run `npm start` to start the backend.
+    * From the `client` directory, run `npm start` to start the React frontend.
+
+---
+
+### 📝 Project Status
+
+This project is currently in the MVP development phase. The core record-analyze-improve loop is the primary focus.
+>>>>>>> 8ca2b3bf5e67b8882d768ed6a49081a08f2dceb2

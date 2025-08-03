@@ -49,8 +49,8 @@ Instructions on how to set up and run a local copy of this project.
 
 1.  **Clone the repository:**
     ```bash
-    git clone [https://github.com/your-username/echo-learn-app.git](https://github.com/your-username/echo-learn-app.git)
-    cd echo-learn-app
+    git clone [https://github.com/your-username/hanasu-app.git](https://github.com/your-username/hanasu-app.git)
+    cd hanasu-app
     ```
 
 2.  **Install server dependencies:**
@@ -67,7 +67,7 @@ Instructions on how to set up and run a local copy of this project.
 
 4.  **Set up environment variables:**
     * Create a `.env` file in the `server` directory.
-    * Add your `GEMINI_API_KEY="YOUR_API_KEY_HERE"`.
+    * Add your `API_KEY="YOUR_API_KEY_HERE"`.
 
 5.  **Run the application:**
     * From the `server` directory, run `npm start` to start the backend.

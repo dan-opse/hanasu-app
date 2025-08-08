@@ -15,9 +15,7 @@ const model = genAI.getGenerativeModel({model: "gemini-1.5-flash"});
 async function runSpike() {
     console.log("Running spike...");
 
-    // Sample text we'll pretend was transcribed from user audio
-    const sampleText = "I is learning English. Yesterday I eat a sushi. It were delicious";
-    // This is the prompt we'll use to generate a response
+    const inputText = "I is learning English. Yesterday I eat a sushi. It were delicious";
     const prompt = `
         Analyze the following English text from a language learner. Provide the response as a
         JSON object with the following keys: "correctedText", "analysis", "nextTopic".
@@ -26,11 +24,10 @@ async function runSpike() {
         2. **analysis**: Provide a short, bulleted list of key mistakes. Explain each mistake simply.
         3. **nextTopic**: Suggest a new, related conversation topic that would help the user practice the areas they struggled with.
 
-        Text to analyze: ${sampleText}
+        Text to analyze: ${inputText}
     `;
 
     try {
-        // Send prompt to model
         const result = await model.generateContent(prompt);
         const response = result.response;
         const responseText = response.text();

@@ -3,7 +3,7 @@
 
 ![Project Status](https://img.shields.io/badge/status-in%20development-yellow)
 
-A web application that allows users to practice a new language by recording voice memos, receiving AI-powered transcription, and getting actionable feedback on grammar and pronunciation.
+A web application that allows users to practice a new language by analyzing voice memos, receiving AI-powered transcription, and getting actionable feedback on grammar and pronunciation. 
 
 ---
 
@@ -20,7 +20,8 @@ _WIP_
 ### ✨ Core Features
 
 * **Voice Memo Recording:** Simple, browser-based audio recording.
-* **AI-Powered Transcription:** Utilizes the browser's built-in Web Speech API for fast and free transcription.
+* **Voice Memo Uploads:** Upload existing voice memos to be analyzed.
+* **AI-Powered Transcription:** Utilizes OpenAI's Whisper API for transcription.
 * **Grammar & Fluency Analysis:** Leverages a Large Language Model (LLM) to correct errors and provide improvement suggestions.
 * **Targeted Practice:** Suggests new topics based on the user's identified weaknesses.
 
@@ -32,9 +33,9 @@ _WIP_
 * **Backend:** Node.js, Express.js
 * **Database:** Firestore
 * **AI Services:**
-    * **Speech-to-Text:** Web Speech API (Browser Native)
-    * **Analysis:** Whipster API
-    * **Text-to-Speech:** Web Speech API (Browser Native)
+    * **Speech-to-Text:** Whisper
+    * **Analysis:** Gemini-1.5 Flash
+    * **Text-to-Speech:** TBA
 
 ---
 

@@ -1,3 +1,17 @@
+/*
+
+
+DEPRECATED since 2025-08-08 15:04
+
+This file is the first test for Hanasu-app. It tested the llm connection with Gemini-1.5 flash
+with predetermined text, cleaning the AI output by parsing in Json for a desired output.
+(does not return anything)
+
+
+*/
+
+
+
 // Import libraries
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import dotenv from "dotenv";
@@ -7,8 +21,8 @@ dotenv.config();
 
 // -- Configuration --
 // Initialize the Google Generative AI client w/ API key
-const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY);
 // Select model to use
+const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY);
 const model = genAI.getGenerativeModel({model: "gemini-1.5-flash"});
 
 // -- Main function --

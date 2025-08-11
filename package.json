@@ -2,10 +2,10 @@
   "name": "ai-spike",
   "version": "1.0.0",
   "description": "A test script for the Hanasu AI core.",
-  "main": "whisper_spike.js",
+  "main": "main.js",
   "type": "module",
   "scripts": {
-    "start": "node whisper_spike.js"
+    "start": "node main.js"
   },
   "dependencies": {
     "@google/genai": "^1.12.0",

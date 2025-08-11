@@ -8,20 +8,20 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 // Module
 import runAnalysis from './analysis.js'
 
-
 import dotenv from "dotenv";
 
 dotenv.config();
 console.log("--- env variables loaded ---")
 
 
-```
+/*
 
 
 End of imports; start of AI connections
 
 
-```
+*/
+
 
 // Create connection with google gemini
 const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY);
@@ -32,13 +32,14 @@ const apiKey = process.env.OPENAI_API_KEY;
 const openai = new OpenAI({ apiKey });
 
 
-```
+/*
 
 
 End of AI conections; start of service
 
 
-```
+*/
+
 
 // Transcribe audio
 const transcribedAudio = await openai.audio.transcriptions.create({
@@ -59,10 +60,12 @@ try {
     console.error("Error in analysis:", e);
 }
 
-```
+
+
+/*
 
 
 End of service
 
 
-```
+*/

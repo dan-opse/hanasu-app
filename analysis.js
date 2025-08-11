@@ -5,13 +5,13 @@ async function runAnalysis(inputText, language, model) {
   console.log("Running analysis...");
 
 
-    ```
+    /*
 
 
     Start of prompts
 
 
-    ```
+    */
 
 
   const prompt = `
@@ -63,13 +63,13 @@ async function runAnalysis(inputText, language, model) {
 
 
 
-    ```
+    /*
 
 
     End of prompts; start of analysis
 
 
-    ```
+    */
 
   try {
 
@@ -77,13 +77,13 @@ async function runAnalysis(inputText, language, model) {
     const response = result.response;
     const responseText = response.text();
 
-    ```
+    /*
 
 
     End of analysisl Start of output formatting
 
 
-    ```
+    */
 
 
     // Parse the JSON
@@ -158,13 +158,13 @@ async function runAnalysis(inputText, language, model) {
             `;
 
 
-        ```
+        /*
 
 
         End of output formatting
       
       
-        ```
+        */
 
 
       console.log(output);

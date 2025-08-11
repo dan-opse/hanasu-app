@@ -1,18 +1,19 @@
 // All LLM connections are handled in whisper_spike.js
 
+// Import formatter
+import format_output from "./format_output.js";
+
 // -- Main function --
 async function runAnalysis(inputText, language, model) {
   console.log("Running analysis...");
 
-
-    /*
+  /*
 
 
     Start of prompts
 
 
     */
-
 
   const prompt = `
         Analyze the following ${language} text from a language learner. Provide the response as a
@@ -61,9 +62,7 @@ async function runAnalysis(inputText, language, model) {
         - **Example**: "_Weakness: Past Tense. -> Next Topic: 'Describe what you did last weekend.' This provides direct practice with past tense verbs._"
     `;
 
-
-
-    /*
+  /*
 
 
     End of prompts; start of analysis
@@ -72,7 +71,6 @@ async function runAnalysis(inputText, language, model) {
     */
 
   try {
-
     const result = await model.generateContent(lang_eng_prompt);
     const response = result.response;
     const responseText = response.text();
@@ -84,7 +82,6 @@ async function runAnalysis(inputText, language, model) {
 
 
     */
-
 
     // Parse the JSON
     try {
@@ -103,6 +100,10 @@ async function runAnalysis(inputText, language, model) {
         console.error("Error during regex extraction:", e);
         return null;
       }
+
+      const parsedJson = format_output(cleanJsonString);
+
+      /*
 
       if (!cleanJsonString) {
         console.error(
@@ -125,9 +126,11 @@ async function runAnalysis(inputText, language, model) {
       console.log("\n✅ Feedback processed successfully! Here's the summary:");
       console.log("----------------------------------------------------");
 
-
       // Use template literals and emojis for a clean, readable console output.
       // Format arrays of objects before display
+
+    */
+
       const strengthsFormatted = parsedJson.strength
         .map((s) => `• ${s.pattern}: ${s.explanation}`)
         .join("\n       ");
@@ -155,17 +158,15 @@ async function runAnalysis(inputText, language, model) {
 
             🚀 NEXT TOPICS
             ${nextTopicsFormatted}
-            `;
+        `;
 
-
-        /*
+      /*
 
 
         End of output formatting
       
       
         */
-
 
       console.log(output);
       console.log("----------------------------------------------------");

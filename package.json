@@ -1,11 +1,14 @@
 {
-  "name": "ai-spike",
+  "name": "hanasu-app",
   "version": "1.0.0",
-  "description": "A test script for the Hanasu AI core.",
+  "description": "Hanasu AI core.",
   "main": "main.js",
   "type": "module",
   "scripts": {
-    "start": "node main.js"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
   },
   "dependencies": {
     "@google/genai": "^1.12.0",

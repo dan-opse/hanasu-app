@@ -1,6 +1,6 @@
 // Format output function
 
-function format_output(cleanJsonString) {
+function parse_json(cleanJsonString) {
   if (!cleanJsonString) {
     console.error(
       "❌ Error: Could not find a valid JSON object in the response."
@@ -8,7 +8,7 @@ function format_output(cleanJsonString) {
     return null;
   }
 
-  // 2. Parse the cleaned JSON string.
+  // Parse the cleaned JSON string.
   let parsedJson;
   try {
     parsedJson = JSON.parse(cleanJsonString);
@@ -25,4 +25,4 @@ function format_output(cleanJsonString) {
   return parsedJson;
 }
 
-export default format_output;
+export default parse_json;

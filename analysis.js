@@ -1,7 +1,7 @@
 // All LLM connections are handled in whisper_spike.js
 
 // Import formatter
-import format_output from "./format_output.js";
+import parse_json from "./parse_json.js";
 
 // -- Main function --
 async function runAnalysis(inputText, language, model) {
@@ -101,35 +101,7 @@ async function runAnalysis(inputText, language, model) {
         return null;
       }
 
-      const parsedJson = format_output(cleanJsonString);
-
-      /*
-
-      if (!cleanJsonString) {
-        console.error(
-          "❌ Error: Could not find a valid JSON object in the response."
-        );
-        return null;
-      }
-
-      // 2. Parse the cleaned JSON string.
-      let parsedJson;
-      try {
-        parsedJson = JSON.parse(cleanJsonString);
-      } catch (error) {
-        console.error("❌ Error: Failed to parse JSON.", error);
-        console.log("Attempted to parse this string:", cleanJsonString);
-        return null;
-      }
-
-      // 3. Format and display the appealing output in the console.
-      console.log("\n✅ Feedback processed successfully! Here's the summary:");
-      console.log("----------------------------------------------------");
-
-      // Use template literals and emojis for a clean, readable console output.
-      // Format arrays of objects before display
-
-    */
+      const parsedJson = parse_json(cleanJsonString);
 
       const strengthsFormatted = parsedJson.strength
         .map((s) => `• ${s.pattern}: ${s.explanation}`)

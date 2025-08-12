@@ -31,7 +31,7 @@ _WIP_
 
 * **Frontend:** React, Tailwind CSS
 * **Backend:** Node.js, Express.js
-* **Database:** Firestore
+* **Database:** Vercel blob
 * **AI Services:**
     * **Speech-to-Text:** Whisper
     * **Analysis:** Gemini-1.5 Flash

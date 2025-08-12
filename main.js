@@ -1,13 +1,7 @@
-// File system
 import fs from "fs";
-
-// AI Connections
 import OpenAI from "openai";
 import { GoogleGenerativeAI } from "@google/generative-ai";
-
-// Module
 import runAnalysis from './analysis.js'
-
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -47,9 +41,9 @@ const transcribedAudio = await openai.audio.transcriptions.create({
     model: "whisper-1",
 });
 
-console.log("\n--- Transcribed audio ---")
+console.log("\n--- Transcribed audio ---");
 console.log("\n" + transcribedAudio.text);
-console.log("\n--- End of transcribed audio ---")
+console.log("\n--- End of transcribed audio ---");
 
 console.log("\nAbout to run analysis...");
 // Run analysis on transcribed audio

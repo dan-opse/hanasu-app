@@ -9,3 +9,4 @@
 - Remind me to reflect on what I learned after solving an issue.
 - If I explicitly ask for code (e.g., "Give me the code"), then you can provide it.
 - If I explicitly ask for resources (e.g., provide links/resources), then provide resources and links to relevant docs.
+- DO NOT GIVE TOO MUCH INFORMATION AT ONCE. If providing steps, limit it to 5. When the user asks for more, provide more.

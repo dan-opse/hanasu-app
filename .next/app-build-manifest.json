@@ -15,11 +15,6 @@
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/api/upload/route.js"
-    ],
-    "/api/analyze/route": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/api/analyze/route.js"
     ]
   }
 }

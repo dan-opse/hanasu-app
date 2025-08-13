@@ -3,8 +3,6 @@
 import { useRef, useState } from "react";
 
 export default function UploadForm() {
-  // Create a reference to the file input element, which is ...
-  // https://react.dev/reference/react/useRef
   const fileInputRef = useRef(null);
   // Declare possible states -> value to read ; function to update it
   const [selectedFile, setSelectedFile] = useState(null);
@@ -16,32 +14,40 @@ export default function UploadForm() {
   async function uploadFile(file) {
     try {
       setError(null);
-      setIsUploading(true);
 
-      // formData is a built-in js object that packaegs data like an HTML form would
-      // it holds data in the EXACT way that web servers expect.
-      const form = new FormData();
-      // append the form with a file and label is "file"
-      form.append("file", file); // must match formData.get('file') in API route
+      // Check if file already exists (duplicate)
+      const exists = await checkFileExists(file.name);
+      if (exists) {
+        setError(`You already uploaded "${file.name}"`);
+      } else {
+        setIsUploading(true);
 
-      // Connect with API route:
-      // POST is a HTTP request method for sending data to a server (API route)
-      // The body is the content (data being sent)
-      const response = await fetch("/api/upload", {
-        method: "POST",
-        body: form,
-      });
+        // formData is a built-in js object that packaegs data like an HTML form would
+        // it holds data in the EXACT way that web servers expect.
+        const form = new FormData();
+        // append the form with a file and label is "file"
+        form.append("file", file); // must match formData.get('file') in API route
 
-      // Check if the server responded successfully
-      // Server side code doesn't handle duplicate filename collisions gracefully
-      if (!response.ok) {
-        throw new Error(`Upload failed (${response.status})`);
+        // Connect with API route:
+        // POST is a HTTP request method for sending data to a server (API route)
+        // The body is the content (data being sent)
+        const response = await fetch("/api/upload", {
+          method: "POST", // this is the same name of the function in the route
+          body: form,
+        });
+
+        // Check if the server responded successfully
+        // Server side code doesn't handle duplicate filename collisions gracefully
+
+        if (!response.ok) {
+          throw new Error(`Upload failed (${response.status})`);
+        }
+
+        // Blob parsing: this line reads the servers (API route) JSON response.
+        const blob = await response.json(); // @vercel/blob returns { url, pathname, ... as JSON
+        // This saves the blob's URL in state so UI can show "Uploaded:" link.
+        setUploadedUrl(blob.url || null);
       }
-
-      // Blob parsing: this line reads the servers (API route) JSON response.
-      const blob = await response.json(); // @vercel/blob returns { url, pathname, ... as JSON
-      // This saves the blob's URL in state so UI can show "Uploaded:" link.
-      setUploadedUrl(blob.url || null);
     } catch (e) {
       setUploadedUrl(null);
       setError(e?.message || "Upload failed");
@@ -57,8 +63,14 @@ export default function UploadForm() {
     }
   }
 
+  async function checkFileExists(filename) {
+    const response = await fetch("/api/upload");
+    const existingFiles = await response.json();
+    // Return truthy value: .some is a js method to check if a file already exists
+    return existingFiles.some((blob) => blob.pathname == filename);
+  }
+
   // Triggers when button is clicked
-  // opens the file picker
   const handleBtnClick = () => {
     // click the hidden file input, like an invisible cursor
     fileInputRef.current.click();
@@ -73,15 +85,12 @@ export default function UploadForm() {
       if (file.type.startsWith("audio/")) {
         try {
           await uploadFile(file);
-        } catch {
-          // error is already set in uploadFile
-        }
+        } catch {}
       } else {
         alert("Please select an audio file (e.g., MP3, WAV, M4A)");
       }
     }
   };
-
 
   // JSX return section
   return (
@@ -92,7 +101,6 @@ export default function UploadForm() {
         // this input area is where the file picker is opened
         type="file"
         ref={fileInputRef}
-        // when user selects a file, onChange fires and triggers handleFileChange
         onChange={handleFileChange}
         accept="audio/*" // Restricts to only audio files
         style={{ display: "none" }} // Hide defualt file input
@@ -113,17 +121,23 @@ export default function UploadForm() {
 
       {error && <p className="mt-2 text-red-600">{error}</p>}
       {uploadedUrl && (
-        <p className="mt-2 text-green-600">
-          Uploaded:{" "}
-          <a
-            href={uploadedUrl}
-            target="_blank"
-            rel="noreferrer"
-            className="underline"
-          >
-            {selectedFile.name}
-          </a>
-        </p>
+        <>
+          <figure>
+            <audio controls src={uploadedUrl}></audio>
+            <a href={uploadedUrl}></a>
+          </figure>
+          <p className="mt-2 text-green-600">
+            Uploaded:{" "}
+            <a
+              href={uploadedUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="underline"
+            >
+              {selectedFile.name}
+            </a>
+          </p>
+        </>
       )}
     </div>
   );

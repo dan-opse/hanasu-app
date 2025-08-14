@@ -1,3 +1,9 @@
+// Upload Route:
+// Method: POST, GET
+// Purpose: Recieve audio file from user -> upload to Vercel Blob
+// Input: Audio file (local)
+// Output: Audio file (blob)
+
 import { put } from '@vercel/blob';
 import { NextResponse } from 'next/server';
 
@@ -21,6 +27,7 @@ export async function POST(request) {
     }
 }
 
+// Returns list of blob objects in a Blob store
 export async function GET() {
     try {
         const { list } = require('@vercel/blob')

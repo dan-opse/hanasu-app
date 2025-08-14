@@ -11,11 +11,16 @@ export default function UploadForm() {
   const [uploadedUrl, setUploadedUrl] = useState(null);
   const [progress, setProgress] = useState(0);
 
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [transcribedText, setTranscribedText] = useState(null);
+  const [analyzedText, setAnalyzedText] = useState(null);
+
   async function uploadFile(file) {
     try {
       setError(null);
 
       // Check if file already exists (duplicate)
+      // Doesn't really handle the issue, just outputs different error code
       const exists = await checkFileExists(file.name);
       if (exists) {
         setError(`You already uploaded "${file.name}"`);
@@ -28,35 +33,42 @@ export default function UploadForm() {
         // append the form with a file and label is "file"
         form.append("file", file); // must match formData.get('file') in API route
 
-        // Connect with API route:
-        // POST is a HTTP request method for sending data to a server (API route)
-        // The body is the content (data being sent)
-        const response = await fetch("/api/upload", {
-          method: "POST", // this is the same name of the function in the route
+        const uploadResponse = await fetch("/api/upload", {
+          method: "POST",
           body: form,
         });
-
-        // Check if the server responded successfully
-        // Server side code doesn't handle duplicate filename collisions gracefully
-
-        if (!response.ok) {
-          throw new Error(`Upload failed (${response.status})`);
+        if (!uploadResponse.ok) {
+          throw new Error(`Upload failed (${uploadResponse.status})`);
         }
 
         // Blob parsing: this line reads the servers (API route) JSON response.
-        const blob = await response.json(); // @vercel/blob returns { url, pathname, ... as JSON
-        // This saves the blob's URL in state so UI can show "Uploaded:" link.
+        const blob = await uploadResponse.json();
         setUploadedUrl(blob.url || null);
+
+        setIsProcessing(true);
+        const transcribeResponse = await fetch("/api/transcribe", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ 
+            audioUrl: blob.url,
+            originalFilename: file.name,
+          }),
+        });
+        if (!transcribeResponse.ok) {
+          throw new Error(
+            `Transcription failed (${transcribeResponse.status})`
+          );
+        }
+        const data = await transcribeResponse.json();
+        setTranscribedText(data.text);
       }
     } catch (e) {
       setUploadedUrl(null);
       setError(e?.message || "Upload failed");
     } finally {
+      // runs even if error is thrown
       setIsUploading(false);
-      // allow re-selecting the same file to trigger onChange again
-      // `fileInputRef` points to hidden file input.
-      // when you click the button, `fileInputRef.current.click()` (line 59)
-      // programmatically clicks the hidden input, opening the file picker.
+      setIsProcessing(false);
       // This line clears the input's value so selecting the same file again triggers `onChange`
       // "If a file is being referenced, set it to blank"
       if (fileInputRef.current) fileInputRef.current.value = "";
